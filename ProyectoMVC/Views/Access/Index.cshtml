@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+    ViewBag.ShowFooter = false;
+}
+
+@section Styles {
+    <link href="~/Content/Access.css" rel="stylesheet" />
+}
+
+<div class="form">
+    <form id="frm">
+        <div class="inputs">
+            Usuario
+            <input type="text" name="user" />
+            Password
+            <input type="password" name="password" />
+            <input type="submit" class="btn btn-success" value="Entrar" />
+        </div>
+    </form>
+    <br />
+    <ul>
+        @Html.ActionLink("Registrar usuario", "Register", "User", new { area = "" }, new { @class = "nav-link" })
+    </ul>
+</div>
+
+
+@section scripts{
+
+
+    <script>
+    $(document).ready(function () {
+        $("#frm").submit(function (e) {
+            e.preventDefault();
+
+            url = "@Url.Content("~/Access/Enter")"
+            parametros = $(this).serialize();
+
+            $.post(url, parametros, function (data) {
+                if (data == "1") {
+                    document.location.href = "@Url.Content("~/")"
+                } else {
+                    alert("Ocurrio un error al iniciar sesión")
+                }
+            })
+        })
+    })
+    </script>
+}
